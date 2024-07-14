@@ -73,3 +73,10 @@ Wget을 사용하는 동안 인증서 확인 건너 뛰기
 HTTPS 프로토콜을 사용하여 유효한 SSL 인증서없이 호스트에서 파일을 다운로드해야하는 경우가 있습니다. 
 이 경우--no-check-certificate 옵션을 사용하여 인증서 확인을 건너 뜁니다.
 wget --no-check-certificate <url>
+
+
+
+
+
+
+
