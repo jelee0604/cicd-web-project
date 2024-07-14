@@ -199,3 +199,13 @@ def post_message(token, channel, text):
 myToken = "xoxb-6909307440647-6923755650723-s47rNHdTJZPyPtqTa1hHu8Yz"
  
 post_message(myToken,'#stock','삼성전자 현재가:' + str(offer))
+
+
+
+
+
+
+
+
+
+
