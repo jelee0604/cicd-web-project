@@ -1,0 +1,11 @@
+Kubernetes
+Docker
+Istio
+GitHub Actions
+jenkins
+Prometheus
+Ansible
+Chef
+Terraform
+JAMStack
+ELK Stack
