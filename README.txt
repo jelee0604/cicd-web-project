@@ -78,7 +78,7 @@ http://127.0.0.1:8888
 /usr/local/tomcat/webapps/manager/META-INF/context.xml
 
 
-9. vim설치
+9. apt-get / yum
 apt-get update
 apt-get upgrade
 apt install vimy
@@ -86,6 +86,9 @@ apt install openjdk-17-jdk openjdk-17-jre
 apt-get install iputils-ping
 apt-get install net-tools
 
+yum list installed | grep odbc
+wget https://download.docker.com
+curl --no-check-certificate https://download.docker.com/linux/centos/docker-ce.repo > /etc/yum.repos.d/docker-ce.repo
 
 10. jenkins 설정
 빌드후조치
