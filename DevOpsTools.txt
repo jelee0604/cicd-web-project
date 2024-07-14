@@ -1,11 +1,18 @@
-Kubernetes
-Docker
-Istio
-GitHub Actions
-jenkins
-Prometheus
-Ansible
-Chef
-Terraform
-JAMStack
-ELK Stack
+Tools
+    Kubernetes
+    Docker
+    Istio
+    GitHub Actions
+    jenkins
+Monitoring
+    Prometheus
+    Grafana
+IaC(Infrastructure as Code)
+    Ansible
+    Chef
+    Terraform
+    AWS CloudFormation
+    Puppet
+ETC
+    JAMStack
+    ELK Stack
