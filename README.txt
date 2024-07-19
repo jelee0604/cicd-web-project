@@ -139,3 +139,102 @@ ex) -name : unique이름, image명 : repository:tag
 docker run -d -p 8080:8080 -name mytomcat docker-server:latest
 
 
+16. ansible pull
+docker pull edowon0623/ansible-server:ubuntu22.04
+docker run --privileged --name ansible-server -itd -p 20022:22 -p 8082:8080 -e container=docker -v /sys/fs/cgroup:/sys/fs/cgroup edowon0623/ansible:latest /usr/sbin/init
+
+ssh root@192.168.0.9 -p 20022 / P@ssw0rd
+
+
+17. Docker bridge
+C:\Users\dsme>docker network inspect bridge
+ansible ip설정
+"Subnet": "172.17.0.0/16","Gateway": "172.17.0.1"
+"Name": "jenkins-server","IPv4Address": "172.17.0.2/16",
+"Name": "ansible-server","IPv4Address": "172.17.0.5/16"
+"Name": "docker-server" ,"IPv4Address": "172.17.0.3/16"
+"Name": "tomcat9"       ,"IPv4Address": "172.17.0.4/16"
+
+
+18. ssh-keygen
+[root@738fc5e47a0f ~]# ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa):
+Created directory '/root/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:itoL9goyMhq9spRyxVhV9Y30WljwkRWIm4pBY/28+oY root@738fc5e47a0f
+The key's randomart image is:
++---[RSA 3072]----+
+|      ..o.. +.++o|
+|     . + . + O.. |
+|    . o . o * =  |
+|   +   .   = o   |
+|  . o   S . o    |
+| ... . o . .     |
+|Oo= . .   o      |
+|BB *     E .     |
+|oo+.+.    o.     |
++----[SHA256]-----+
+
+
+19. ssh-copy-id
+[root@738fc5e47a0f ~]# ssh-copy-id root@172.17.0.3
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/root/.ssh/id_rsa.pub"
+The authenticity of host '172.17.0.3 (172.17.0.3)' can't be established.
+ECDSA key fingerprint is SHA256:NFvA1cbhtoxDOMM7dfg4EC4cl32HEkUQXH6rToTU7pQ.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+
+ssh root@172.17.0.3
+
+
+20. ansible
+[root@738fc5e47a0f ~]# vi /etc/ansible/hosts
+[devops]
+172.17.0.3
+172.17.0.4
+
+ansible-playbook first-playbook.yml
+- name: Add an ansible hosts
+  hosts: localhost
+  tasks:
+    - name: Add an ansible hosts
+      blockinfile:
+        path: /etc/ansible/hosts
+        block: |
+          [mygroup]
+          172.17.0.5
+
+ansible-playbook playbook-sample1.yml
+cp test.txt sample.txt
+- name: Ansible Copy Example Local to Remote
+  hosts: devops
+  tasks:
+    - name: copying file with playbook
+      copy:
+        src: ~/sample.txt
+        dest: /tmp
+        owner: root
+        mode: 0644
+
+ansible-playbook playbook-sample2.yml
+- name: Download Tomcat9 from tomcat.apache.org
+  hosts: devops
+  tasks:
+   - name: Create a Directory /opt/tomcat9
+     file:
+       path: /opt/tomcat9
+       state: directory
+       mode: 0755
+   - name: DDownload Tomcat using get_url
+     get_url:
+       url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.91/bin/apache-tomcat-9.0.91.tar.gz
+       dest: /opt/tomcat9
+       mode: 0755
+       checksum: sha512:https://downloads.apache.org/tomcat/tomcat-9/v9.0.91/bin/apache-tomcat-9.0.91.tar.gz.sha512
+

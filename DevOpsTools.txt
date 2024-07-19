@@ -1,18 +1,20 @@
-Tools
+Container
     Kubernetes
     Docker
     Istio
+    jenkins    
+VCS
     GitHub Actions
-    jenkins
 Monitoring
     Prometheus
     Grafana
 IaC(Infrastructure as Code)
-    Ansible
-    Chef
-    Terraform
-    AWS CloudFormation
     Puppet
+    Chef
+    Salt
+    Ansible
+    Terraform
+    AWS CloudFormation    
 ETC
     JAMStack
     ELK Stack
