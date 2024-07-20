@@ -279,4 +279,10 @@ ansible-playbook -i hosts second-devops-playbook.yml
 
 http://localhost:8082/hello-world/ (ansible : localhost:8082->8080->8080)
 
-21. kubernetes
+21. docker hub
+docker build -t edowon0623/cicd-project-ansible .
+docker images edowon0623/cicd-project-ansible
+docker image tag d6d82d332399 manhunt/cicd-project-ansible
+docker image manhunt/cicd-project-ansible
+docker push manhunt/cicd-project-ansible:latest
+
