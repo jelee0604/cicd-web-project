@@ -196,8 +196,9 @@ ssh root@172.17.0.3
 20. ansible
 [root@738fc5e47a0f ~]# vi /etc/ansible/hosts
 [devops]
-172.17.0.3
-172.17.0.4
+//172.17.0.2  //jenkins-server
+172.17.0.3  //ansible-server
+172.17.0.4  //docker-server
 
 ansible-playbook first-playbook.yml
 - name: Add an ansible hosts
@@ -238,3 +239,40 @@ ansible-playbook playbook-sample2.yml
        mode: 0755
        checksum: sha512:https://downloads.apache.org/tomcat/tomcat-9/v9.0.91/bin/apache-tomcat-9.0.91.tar.gz.sha512
 
+ansible-playbook -i hosts first-devops-playbook.yml --check
+ansible-playbook -i hosts first-devops-playbook.yml
+- hosts: all
+#   become: true
+
+  tasks:
+  - name: build a docker image with deployed war file
+    command: docker build -t cicd-project-ansible .
+    args:
+        chdir: /root
+  - name: create a container using cicd-project-ansible image
+    command: docker run -d --name my_cicd_project -p 8081:8080 cicd-project-ansible
+
+ansible-playbook -i hosts second-devops-playbook.yml
+- hosts: all
+#   become: true
+
+  tasks:
+  - name: stop current running container
+    command: docker stop my_cicd_project
+    ignore_errors: yes
+
+  - name: remove stopped container
+    command: docker rm my_cicd_project
+    ignore_errors: yes
+
+  - name: remove current docker images
+    command: docker rmi cicd_project_ansible
+    ignore_errors: yes
+
+  - name: build a docker image with deployed war file
+    command: docker build -t cicd_project_ansible .
+    args:
+       chdir: /root
+
+  - name: create a container using cicd-project-ansible image
+    command: docker run -d --name my_cicd_project -p 8081:8080 cicd_project_ansible
