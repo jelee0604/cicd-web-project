@@ -276,3 +276,5 @@ ansible-playbook -i hosts second-devops-playbook.yml
 
   - name: create a container using cicd-project-ansible image
     command: docker run -d --name my_cicd_project -p 8081:8080 cicd_project_ansible
+
+
