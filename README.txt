@@ -275,7 +275,8 @@ ansible-playbook -i hosts second-devops-playbook.yml
        chdir: /root
 
   - name: create a container using cicd-project-ansible image
-    command: docker run -d --name my_cicd_project -p 8081:8080 cicd_project_ansible
+    command: docker run -d --name my_cicd_project -p 8080:8080 cicd_project_ansible
 
+http://localhost:8082/hello-world/ (ansible : localhost:8082->8080->8080)
 
 21. kubernetes
