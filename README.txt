@@ -278,3 +278,4 @@ ansible-playbook -i hosts second-devops-playbook.yml
     command: docker run -d --name my_cicd_project -p 8081:8080 cicd_project_ansible
 
 
+21. kubernetes
