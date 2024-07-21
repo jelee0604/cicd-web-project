@@ -14,13 +14,21 @@
 https://github.com/joneconsulting/cicd-web-project
 https://github.com/jelee0604/cicd-web-project
 
+1) 신규 프로젝트 생성
 echo "# cicd-web-project" >> README.md
+git clone https://github.com/joneconsulting/cicd-web-project.git
+git clone https://github.com/joneconsulting/jenkins_pipeline_script.git
 git init
 git add README.md
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/jelee0604/cicd-web-project.git
 git push -u origin main
+
+2) 기존 저장소
+git remote add origin https://github.com/jelee0604/cicd-web-project.git
+git add *
+git commit ~
+git push
 
 
 1. docker-desktop
@@ -286,3 +294,32 @@ docker image tag d6d82d332399 manhunt/cicd-project-ansible
 docker image manhunt/cicd-project-ansible
 docker push manhunt/cicd-project-ansible:latest
 
+
+22. docker tag
+docker tag cicd-project-ansible manhunt/cicd-project-ansible
+docker images
+docker login
+username : manhunt
+password : Dlwhddms1!
+docker push manhunt/cicd-project-ansible
+
+vi create-cicd-devops-image.yml 
+- hosts: all
+#   become: true
+
+  tasks:
+  - name: create a docker image with deployed war file
+    command: docker build -t manhunt/cicd-project-ansible .
+    args:
+        chdir: /root
+
+  - name: push the image on Docker Hub
+    command: docker push manhunt/cicd-project-ansible
+
+  - name: remove the docker image from the ansible server
+    command: docker rmi manhunt/cicd-project-ansible
+    ignore_errors: yes
+
+
+ansible-playbook -i hosts create-cicd-devops-image.yml --limit 172.17.0.3
+ansible-playbook -i hosts create-cicd-devops-container.yml --limit 172.17.0.4
